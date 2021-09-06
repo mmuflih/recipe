@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"strings"
 	"time"
 
 	paginator "github.com/mmuflih/gorm-paginator"
@@ -70,13 +71,22 @@ func (s recipeRepo) List(q string, page, size int) *paginator.Paginator {
 	}
 
 	var filters []paginator.Filter
+	q = strings.ToLower(q)
 	filters = append(filters, paginator.Filter{"", "raw", "r.deleted_at is null"})
+	filters = append(filters, paginator.Filter{"", "raw",
+		"lower(c.name) like '%" + q + "%'" +
+			" OR lower(r.name) like '%" + q + "%'" +
+			" OR lower(i.name) like '%" + q + "%'"})
 
-	query := `SELECT r.id, r.name, r.slug, c.name as category_name, 
+	query := `SELECT distinct r.id, r.name, r.slug, c.name as category_name, 
 			c.id as category_id, r.created_at
 		FROM recipes r
 		JOIN categories c
-			ON c.id = r.category_id`
+			ON c.id = r.category_id
+		JOIN recipe_details rd
+			ON rd.recipe_id = r.id
+		JOIN ingredients i
+			ON i.id = rd.ingredient_id`
 	return paginator.MakeRaw(query, &paginator.Config{
 		DB:      s.db,
 		Page:    page,
