@@ -37,7 +37,7 @@ func (h mainUC) Add(req requests.RecipeRequest) (interface{}, error) {
 			tx.Rollback()
 			return nil, errors.New("selected ingredient not found")
 		}
-		dtl := models.NewRecipeDetail(recipe.ID, item.IngredientID, item.Qty)
+		dtl := models.NewRecipeDetail(recipe.ID, item.IngredientID, item.Notes)
 		err = h.recipeDtlRepo.Save(dtl, tx)
 		if err != nil {
 			return nil, errors.New("error while saving recipe item")

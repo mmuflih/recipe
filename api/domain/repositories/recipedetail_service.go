@@ -50,7 +50,7 @@ func (s recipeDetailRepo) Find(id uint) (*models.RecipeDetail, error) {
 
 func (s recipeDetailRepo) FindByRecipe(recipeID uint) ([]*models.RecipeDetail, error) {
 	var items []*models.RecipeDetail
-	err := s.db.Find(&items, "recipe_id = ?", recipeID).Error
+	err := s.db.Find(&items, "deleted_at is null and recipe_id = ?", recipeID).Error
 	if err != nil {
 		return nil, err
 	}

@@ -59,14 +59,15 @@ func (mu mainUC) saveDetail(recipeID uint, ingredients []requests.RecipeDetail,
 
 		dtl, err := mu.recipeDtlRepo.FindByIngredient(recipeID, item.IngredientID)
 		if err != nil {
-			dtl = models.NewRecipeDetail(recipeID, item.IngredientID, item.Qty)
+			dtl = models.NewRecipeDetail(recipeID, item.IngredientID, item.Notes)
 			err = mu.recipeDtlRepo.Save(dtl, tx)
 			if err != nil {
 				return activeItems, errors.New("error while saving recipe detail")
 			}
 			continue
 		}
-		dtl.Qty = item.Qty
+		dtl.Notes = item.Notes
+		dtl.DeletedAt = nil
 		err = mu.recipeDtlRepo.Update(dtl, tx)
 		if err != nil {
 			return activeItems, errors.New("error while saving recipe detail")

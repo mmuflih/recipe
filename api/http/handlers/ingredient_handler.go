@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/mmuflih/recipe/api/context/ingredient"
 	"github.com/mmuflih/recipe/api/http/core/request"
@@ -65,7 +63,6 @@ func (ph *ingredientH) Delete(c *gin.Context) {
 
 func (ph *ingredientH) GetBySlug(c *gin.Context) {
 	slug := ph.rr.GetRouteParam(c, "slug")
-	fmt.Println("SLUG", slug)
 	resp, err := ph.mainUsecase.GetBySlug(slug)
 	response.Json(c, resp, err)
 }

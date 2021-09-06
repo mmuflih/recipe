@@ -4,7 +4,7 @@ CREATE TABLE public.recipe_details (
 	id serial NOT NULL,
     recipe_id integer not null,
     ingredient_id integer not null,
-	"qty" varchar(30) NOT NULL,
+	notes varchar(50) NOT NULL,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	deleted_at TIMESTAMPTZ NULL DEFAULT NULL,

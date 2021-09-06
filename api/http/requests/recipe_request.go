@@ -14,5 +14,5 @@ type RecipeRequest struct {
 
 type RecipeDetail struct {
 	IngredientID uint   `json:"ingredient_id" valid:"required"`
-	Qty          string `json:"qty" valid:"required"`
+	Notes        string `json:"notes" valid:"required"`
 }

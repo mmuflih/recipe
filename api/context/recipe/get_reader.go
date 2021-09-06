@@ -34,8 +34,9 @@ func (h mainUC) createResponse(recipe *models.Recipe,
 			continue
 		}
 		ingredients = append(ingredients, ingredientResponse{
-			Ingredient: ing.PublicResponse(),
-			Qty:        dtl.Qty,
+			Ingredient:   ing.PublicResponse(),
+			Notes:        dtl.Notes,
+			IngredientID: ing.ID,
 		})
 	}
 	return detailResponse{
@@ -50,6 +51,7 @@ type detailResponse struct {
 }
 
 type ingredientResponse struct {
-	Ingredient interface{} `json:"item"`
-	Qty        string      `json:"qty"`
+	Ingredient   interface{} `json:"item"`
+	Notes        string      `json:"notes"`
+	IngredientID uint        `json:"ingredient_id"`
 }

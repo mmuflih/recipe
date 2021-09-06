@@ -13,3 +13,7 @@
 ## How to Run
     - sql-migrate up
     - go run main.go
+
+## Api Documentation
+
+    https://documenter.getpostman.com/view/145345/U16gQnhn
