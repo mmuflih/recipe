@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recipe v1</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+        });
+        hljs.initHighlightingOnLoad();
+    </script>
+    <style>body {
+    position: relative;
+}
+
+h1 {
+    margin-top: 5px;
+}
+
+h1, h2, h3, h4 {
+    color: #2b2b2b;
+}
+
+h2:after {
+    content: ' ';
+}
+
+h5 {
+    font-weight: bold;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    display: none;
+    position: absolute;
+    margin-left: 8px;
+}
+
+h1:hover a, h2:hover a, h3:hover a, h4:hover a, h5:hover a, h6:hover a {
+    color: #a5a5a5;
+    display: initial;
+}
+
+.nav.nav-tabs > li > a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tab-content {
+    padding-top: 8px;
+}
+
+.table {
+    margin-bottom: 8px;
+}
+
+pre {
+    border-radius: 0px;
+    border: none;
+}
+
+pre code {
+    margin: -9.5px;
+}
+
+.request {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.response-text-sample {
+    padding: 0px !important;
+}
+
+.response-text-sample pre {
+    margin-bottom: 0px;
+}
+
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #2b2b2b;
+    padding-top: 20px;
+}
+
+#sidebar-wrapper ul {
+    width: 250px;
+}
+
+#sidebar-wrapper ul li {
+    margin-right: 10px;
+}
+
+#sidebar-wrapper ul li a:hover {
+    background: inherit;
+    text-decoration: none;
+}
+
+#sidebar-wrapper ul li a {
+    display: block;
+    color: #ECF0F1;
+    padding: 6px 15px;
+}
+
+#sidebar-wrapper ul li ul {
+    padding-left: 25px;
+}
+
+#sidebar-wrapper ul li ul li a {
+    padding: 1px 0px;
+}
+
+#sidebar-wrapper ul li a:hover,
+#sidebar-wrapper ul li a:focus {
+    color: #e0c46c;
+    border-right: solid 1px #e0c46c;
+}
+
+#sidebar-wrapper ul li.active > a {
+    color: #e0c46c;
+    border-right: solid 3px #e0c46c;
+}
+
+#sidebar-wrapper ul li:not(.active) ul {
+    display: none;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px 15px 15px 250px;
+}
+</style>
+</head>
+<body data-spy="scroll" data-target=".scrollspy">
+<div id="sidebar-wrapper">
+    <div class="scrollspy">
+    <ul id="main-menu" data-spy="affix" class="nav">
+        <li>
+            <a href="#doc-general-notes">General notes</a>
+        </li>
+        
+        <li>
+            <a href="#doc-api-detail">API detail</a>
+        </li>
+        
+        
+        
+        <li>
+            <a href="#folder-category">Category</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-category-add">Add</a>
+                </li>
+                
+                <li>
+                    <a href="#request-category-get-by-slug">Get By Slug</a>
+                </li>
+                
+                <li>
+                    <a href="#request-category-get-list">Get List</a>
+                </li>
+                
+                <li>
+                    <a href="#request-category-delete">Delete</a>
+                </li>
+                
+                <li>
+                    <a href="#request-category-edit">Edit</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-ingredient">Ingredient</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-ingredient-add">Add</a>
+                </li>
+                
+                <li>
+                    <a href="#request-ingredient-get-by-slug">Get By Slug</a>
+                </li>
+                
+                <li>
+                    <a href="#request-ingredient-get-list">Get List</a>
+                </li>
+                
+                <li>
+                    <a href="#request-ingredient-delete">Delete</a>
+                </li>
+                
+                <li>
+                    <a href="#request-ingredient-edit">Edit</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-recipe">Recipe</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-recipe-add">Add</a>
+                </li>
+                
+                <li>
+                    <a href="#request-recipe-get-by-slug">Get By Slug</a>
+                </li>
+                
+                <li>
+                    <a href="#request-recipe-get-list">Get List</a>
+                </li>
+                
+                <li>
+                    <a href="#request-recipe-delete">Delete</a>
+                </li>
+                
+                <li>
+                    <a href="#request-recipe-edit">Edit</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+    </ul>
+</div>
+
+</div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Recipe v1</h1>
+
+                <h2 id="doc-general-notes">
+                    General notes
+                    <a href="#doc-general-notes"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                
+
+                
+
+                <h2 id="doc-api-detail">
+                    API detail
+                    <a href="#doc-api-detail"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                
+
+
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-category">
+                        Category
+                        <a href="#folder-category"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-category-add">
+                            Add
+                            <a href="#request-category-add"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-category-add-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-category-add-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-category-add-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "name": "main course"
+}' "{{API_HOST}}/v1/categories"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-category-add-example-http">
+                                    <pre><code class="hljs http">POST %7B%7BAPI_HOST%7D%7D/v1/categories HTTP/1.1
+Host: 
+
+{
+    "name": "main course"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-category-get-by-slug">
+                            Get By Slug
+                            <a href="#request-category-get-by-slug"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-category-get-by-slug-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-category-get-by-slug-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-category-get-by-slug-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{API_HOST}}/v1/categories/slug/main-course"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-category-get-by-slug-example-http">
+                                    <pre><code class="hljs http">GET %7B%7BAPI_HOST%7D%7D/v1/categories/slug/main-course HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-category-get-list">
+                            Get List
+                            <a href="#request-category-get-list"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-category-get-list-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-category-get-list-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-category-get-list-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{API_HOST}}/v1/categories"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-category-get-list-example-http">
+                                    <pre><code class="hljs http">GET %7B%7BAPI_HOST%7D%7D/v1/categories HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-category-delete">
+                            Delete
+                            <a href="#request-category-delete"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-category-delete-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-category-delete-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-category-delete-example-curl">
+                                    <pre><code class="hljs curl">curl -X DELETE "{{API_HOST}}/v1/categories/1"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-category-delete-example-http">
+                                    <pre><code class="hljs http">DELETE %7B%7BAPI_HOST%7D%7D/v1/categories/1 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-category-edit">
+                            Edit
+                            <a href="#request-category-edit"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-category-edit-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-category-edit-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-category-edit-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "name": "jon"
+}' "{{API_HOST}}/v1/categories/2"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-category-edit-example-http">
+                                    <pre><code class="hljs http">PUT %7B%7BAPI_HOST%7D%7D/v1/categories/2 HTTP/1.1
+Host: 
+
+{
+    "name": "jon"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-ingredient">
+                        Ingredient
+                        <a href="#folder-ingredient"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-ingredient-add">
+                            Add
+                            <a href="#request-ingredient-add"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-ingredient-add-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-ingredient-add-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-ingredient-add-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "name": "Ayam"
+}' "{{API_HOST}}/v1/ingredients"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-ingredient-add-example-http">
+                                    <pre><code class="hljs http">POST %7B%7BAPI_HOST%7D%7D/v1/ingredients HTTP/1.1
+Host: 
+
+{
+    "name": "Ayam"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-ingredient-get-by-slug">
+                            Get By Slug
+                            <a href="#request-ingredient-get-by-slug"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-ingredient-get-by-slug-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-ingredient-get-by-slug-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-ingredient-get-by-slug-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{API_HOST}}/v1/ingredients/slug/ayam"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-ingredient-get-by-slug-example-http">
+                                    <pre><code class="hljs http">GET %7B%7BAPI_HOST%7D%7D/v1/ingredients/slug/ayam HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-ingredient-get-list">
+                            Get List
+                            <a href="#request-ingredient-get-list"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-ingredient-get-list-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-ingredient-get-list-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-ingredient-get-list-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{API_HOST}}/v1/ingredients"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-ingredient-get-list-example-http">
+                                    <pre><code class="hljs http">GET %7B%7BAPI_HOST%7D%7D/v1/ingredients HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-ingredient-delete">
+                            Delete
+                            <a href="#request-ingredient-delete"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-ingredient-delete-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-ingredient-delete-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-ingredient-delete-example-curl">
+                                    <pre><code class="hljs curl">curl -X DELETE "{{API_HOST}}/v1/ingredients/1"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-ingredient-delete-example-http">
+                                    <pre><code class="hljs http">DELETE %7B%7BAPI_HOST%7D%7D/v1/ingredients/1 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-ingredient-edit">
+                            Edit
+                            <a href="#request-ingredient-edit"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-ingredient-edit-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-ingredient-edit-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-ingredient-edit-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "name": "Jambu"
+}' "{{API_HOST}}/v1/ingredients/1"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-ingredient-edit-example-http">
+                                    <pre><code class="hljs http">PUT %7B%7BAPI_HOST%7D%7D/v1/ingredients/1 HTTP/1.1
+Host: 
+
+{
+    "name": "Jambu"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-recipe">
+                        Recipe
+                        <a href="#folder-recipe"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-recipe-add">
+                            Add
+                            <a href="#request-recipe-add"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-recipe-add-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-recipe-add-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-recipe-add-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "name": "Nasi Goreng",
+    "category_id": 1,
+    "ingredients": [
+        {"ingredient_id": 1, "qty": "1 sendok makan"}
+    ]
+}' "{{API_HOST}}/v1/recipes"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-recipe-add-example-http">
+                                    <pre><code class="hljs http">POST %7B%7BAPI_HOST%7D%7D/v1/recipes HTTP/1.1
+Host: 
+
+{
+    "name": "Nasi Goreng",
+    "category_id": 1,
+    "ingredients": [
+        {"ingredient_id": 1, "qty": "1 sendok makan"}
+    ]
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-recipe-get-by-slug">
+                            Get By Slug
+                            <a href="#request-recipe-get-by-slug"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-recipe-get-by-slug-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-recipe-get-by-slug-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-recipe-get-by-slug-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{API_HOST}}/v1/recipes/slug/nasi-goreng-1"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-recipe-get-by-slug-example-http">
+                                    <pre><code class="hljs http">GET %7B%7BAPI_HOST%7D%7D/v1/recipes/slug/nasi-goreng-1 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-recipe-get-list">
+                            Get List
+                            <a href="#request-recipe-get-list"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-recipe-get-list-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-recipe-get-list-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-recipe-get-list-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{API_HOST}}/v1/recipes"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-recipe-get-list-example-http">
+                                    <pre><code class="hljs http">GET %7B%7BAPI_HOST%7D%7D/v1/recipes HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-recipe-delete">
+                            Delete
+                            <a href="#request-recipe-delete"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-recipe-delete-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-recipe-delete-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-recipe-delete-example-curl">
+                                    <pre><code class="hljs curl">curl -X DELETE "{{API_HOST}}/v1/recipes/2"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-recipe-delete-example-http">
+                                    <pre><code class="hljs http">DELETE %7B%7BAPI_HOST%7D%7D/v1/recipes/2 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-recipe-edit">
+                            Edit
+                            <a href="#request-recipe-edit"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-recipe-edit-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-recipe-edit-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-recipe-edit-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "name": "Nasi Uduk",
+    "category_id": 1,
+    "ingredients": [
+        {"ingredient_id": 1, "qty": "1 sendok makan"}
+    ]
+}' "{{API_HOST}}/v1/recipes/3"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-recipe-edit-example-http">
+                                    <pre><code class="hljs http">PUT %7B%7BAPI_HOST%7D%7D/v1/recipes/3 HTTP/1.1
+Host: 
+
+{
+    "name": "Nasi Uduk",
+    "category_id": 1,
+    "ingredients": [
+        {"ingredient_id": 1, "qty": "1 sendok makan"}
+    ]
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("table:not(.table)").addClass('table table-bordered');
+    });
+</script>
+</body>
+</html>
