@@ -66,6 +66,8 @@ func (s recipeRepo) List(q string, page, size int) *paginator.Paginator {
 		Name         string    `json:"name"`
 		Slug         string    `json:"slug"`
 		CategoryName string    `json:"category_name"`
+		Ingredients  string    `json:"ingredients"`
+		Notes        string    `json:"notes"`
 		CategoryID   uint16    `json:"category_id"`
 		CreatedAt    time.Time `json:"created_at"`
 	}
@@ -79,7 +81,8 @@ func (s recipeRepo) List(q string, page, size int) *paginator.Paginator {
 			" OR lower(i.name) like '%" + q + "%'"})
 
 	query := `SELECT distinct r.id, r.name, r.slug, c.name as category_name, 
-			c.id as category_id, r.created_at
+			c.id as category_id, r.created_at, array_agg(i."name") as ingredients,
+			array_agg(rd.notes) as notes
 		FROM recipes r
 		JOIN categories c
 			ON c.id = r.category_id
@@ -93,6 +96,7 @@ func (s recipeRepo) List(q string, page, size int) *paginator.Paginator {
 		Size:    size,
 		OrderBy: []string{"r.created_at desc"},
 		Filters: filters,
+		GroupBy: []string{"r.id", "r.name", "r.slug", "c.name", "c.id", "r.created_at"},
 		ShowSQL: true,
 	}, &items)
 }

@@ -22,6 +22,8 @@
           </div>
         </div>
         <div class="card-body">
+          <input type="text" class="form-control" placeholder="ketikkan keyword untuk mencari" v-model="q" @keyup="search">
+          <br/>
           <div class="scroll">
             <table class="table table-bordered table-stripped">
               <thead>
@@ -29,7 +31,7 @@
                   <th>No</th>
                   <th>Kategori</th>
                   <th>Nama</th>
-                  <th>Slug</th>
+                  <th>Bahan</th>
                   <th></th>
                 </tr>
               </thead>
@@ -38,7 +40,7 @@
                   <td>{{ k + 1 }}</td>
                   <td>{{ v.category_name }} </td>
                   <td>{{ v.name }} </td>
-                  <td>{{ v.slug }} </td>
+                  <td>{{ v.ingredients }} </td>
                   <td>
                     <a class="btn btn-outline-primary" :href="`#/recipes/add?slug=${v.slug}`">Edit</a>
                     <button class="btn btn-outline-danger" @click="deleteItem(v)">Delete</button>
@@ -63,15 +65,16 @@ export default {
   data () {
     return {
       loading: false,
-      data: {}
+      data: {},
+      q: ''
     }
   },
   created () {
-    this.load()
+    this.load('')
   },
   methods: {
-    load () {
-      HTTP.get('/v1/recipes').then(res => {
+    load (q) {
+      HTTP.get(`/v1/recipes?q=${q}`).then(res => {
         this.data = res.data
       })
     },
@@ -85,6 +88,9 @@ export default {
           this.$toast.error('gagal mengapush data')
         })
       }
+    },
+    search () {
+      this.load(this.q)
     }
   }
 }
