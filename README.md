@@ -25,3 +25,7 @@
     cd recipe/web
     npm install or yarn install
     yarn serve
+
+----------------------------
+## Video Demo
+https://drive.google.com/drive/folders/1DnGn_kVTVtvPkhKt93jaZbBDkFWIpQ-9?usp=sharing
